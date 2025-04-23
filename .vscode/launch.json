@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "android (debug)",
+            "type": "dart",
+            "request": "launch",
+            "flutterMode": "debug",
+            "deviceId": "192.168.0.100:37969",
+            "args": [
+                "--flavor",
+                "dev",
+                "-t",
+                "lib/main.dart",
+                "--verbose",
+                "--dart-define",
+                "FLAVOR=dev"
+            ]
+        }
+    ]
+}
