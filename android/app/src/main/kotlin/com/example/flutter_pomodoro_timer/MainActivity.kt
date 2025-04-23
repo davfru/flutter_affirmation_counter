@@ -1,4 +1,4 @@
-package com.example.flutter_pomodoro_timer
+package com.example.flutter_affirmation_counter
 
 import io.flutter.embedding.android.FlutterActivity
 

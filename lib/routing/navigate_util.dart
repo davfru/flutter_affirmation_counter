@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pomodoro_timer/main.dart';
+import 'package:flutter_affirmation_counter/main.dart';
 
 class NavigateUtil {
   void navigateToView(String routeName,

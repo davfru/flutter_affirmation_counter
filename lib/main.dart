@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_pomodoro_timer/bloc/auth/auth_bloc.dart';
-import 'package:flutter_pomodoro_timer/bloc/auth/auth_status.dart';
-import 'package:flutter_pomodoro_timer/cache/auth_cache_manager.dart';
-import 'package:flutter_pomodoro_timer/env_config.dart';
-import 'package:flutter_pomodoro_timer/routing/app_router.dart';
-import 'package:flutter_pomodoro_timer/routing/navigate_util.dart';
+import 'package:flutter_affirmation_counter/bloc/auth/auth_bloc.dart';
+import 'package:flutter_affirmation_counter/bloc/auth/auth_status.dart';
+import 'package:flutter_affirmation_counter/cache/auth_cache_manager.dart';
+import 'package:flutter_affirmation_counter/env_config.dart';
+import 'package:flutter_affirmation_counter/routing/app_router.dart';
+import 'package:flutter_affirmation_counter/routing/navigate_util.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -41,20 +41,12 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final AppRouter _appRouter = AppRouter();
   late final AuthBloc authBloc;
-  late StreamSubscription authStream;
 
   @override
   void initState() {
     super.initState();
 
     authBloc = context.read<AuthBloc>();
-    authStream = authBloc.stream.listen((state) {
-      if (state.status == AuthStatus.userIsLogged) {
-        NavigateUtil().navigateToView('/customer', clearStack: true);
-      } else if (state.status == AuthStatus.userIsNotLogged) {
-        NavigateUtil().navigateToView('/guest', clearStack: true);
-      }
-    });
   }
 
   @override
@@ -71,7 +63,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     _appRouter.dispose();
-    authStream.cancel();
     super.dispose();
   }
 }

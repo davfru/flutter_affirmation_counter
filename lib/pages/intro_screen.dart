@@ -1,5 +1,11 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_pomodoro_timer/theme/app_colors.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_affirmation_counter/theme/gaps.dart';
+import 'package:hardware_button_listener/hardware_button_listener.dart';
+import 'package:hardware_button_listener/models/hardware_button.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key, required this.title});
@@ -10,68 +16,83 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
-  late PageController _pageController;
-  double _progress = 0;
+  String _lastButtonPressed = 'No button pressed yet';
+  int _counter = 0;
+
+  final _hardwareButtonListener = HardwareButtonListener();
+  late StreamSubscription<HardwareButton> _buttonSubscription;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController()
-      ..addListener(() {
-        setState(() {
-          _progress = _pageController.page ?? 0;
-        });
+    // Start listening for hardware button events
+    startListeningToHardwareButtons();
+  }
+
+  @override
+  void dispose() {
+    // Cancel the subscription to free up resources
+    _buttonSubscription.cancel();
+    super.dispose();
+  }
+
+  // Listen for hardware button events and update the UI
+  void startListeningToHardwareButtons() {
+    _buttonSubscription = _hardwareButtonListener.listen((event) {
+      // log(event.buttonKey.toString());
+      // log(event.buttonName.toString());
+      setState(() {
+        _lastButtonPressed = event.buttonName.toString();
+        if (_lastButtonPressed == 'VOLUME_UP') {
+          _incrementCounter();
+        } else if (_lastButtonPressed == 'VOLUME_DOWN') {
+          _decrementCounter();
+        }
       });
+    });
+  }
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
+
+  void _resetCounter() {
+    setState(() {
+      _counter = 0;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: AppColors.lightBlue,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 250),
-              child: Center(
-                child: Image.asset(
-                  "assets/images/bg.png",
-                  width: MediaQuery.of(context).size.width *
-                      0.7, // Adjust the width as needed
-                  height: MediaQuery.of(context).size.height *
-                      0.5, // Adjust the height as needed
-                  fit: BoxFit.contain,
-                ),
+    return MaterialApp(
+      home: Scaffold(
+        // appBar: AppBar(
+        //   title: const Text('Hardware Button Listener Example'),
+        // ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '$_counter',
+                style: const TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
               ),
-            ),
+              gapH24,
+              ElevatedButton(
+                onPressed: _resetCounter,
+                child: const Text('RESET'),
+              ),
+            ],
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                ),
-                height:
-                    MediaQuery.of(context).size.height * 0.35 + _progress * 150,
-                child: Column(
-                  children: [
-                    Expanded(
-                        child: PageView(
-                      controller: _pageController,
-                      children: [
-                        Text("Page")
-                      ],
-                    ))
-                  ],
-                )),
-          )
-        ],
+        ),
       ),
     );
   }

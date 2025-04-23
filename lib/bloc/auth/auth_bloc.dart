@@ -1,9 +1,9 @@
-import 'package:flutter_pomodoro_timer/bloc/auth/auth_model.dart';
-import 'package:flutter_pomodoro_timer/bloc/auth/auth_status.dart';
-import 'package:flutter_pomodoro_timer/cache/auth_cache_manager.dart';
-import 'package:flutter_pomodoro_timer/bloc/auth/auth_model.dart';
-import 'package:flutter_pomodoro_timer/bloc/auth/auth_status.dart';
-import 'package:flutter_pomodoro_timer/cache/auth_cache_manager.dart';
+import 'package:flutter_affirmation_counter/bloc/auth/auth_model.dart';
+import 'package:flutter_affirmation_counter/bloc/auth/auth_status.dart';
+import 'package:flutter_affirmation_counter/cache/auth_cache_manager.dart';
+import 'package:flutter_affirmation_counter/bloc/auth/auth_model.dart';
+import 'package:flutter_affirmation_counter/bloc/auth/auth_status.dart';
+import 'package:flutter_affirmation_counter/cache/auth_cache_manager.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

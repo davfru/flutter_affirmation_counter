@@ -1,6 +1,6 @@
-# flutter_pomodoro_timer
+# flutter_affirmation_counter
 
-Pomodoro timer in Flutter
+Affirmation counter timer in Flutter
 
 ## Run in Docker container
 

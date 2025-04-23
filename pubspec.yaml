@@ -1,4 +1,4 @@
-name: flutter_pomodoro_timer
+name: flutter_affirmation_counter
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -38,6 +38,7 @@ dependencies:
   equatable: ^2.0.7
   flutter_secure_storage: ^8.0.0
   flutter_dotenv: ^5.2.1
+  hardware_button_listener: ^0.0.1
 
 dev_dependencies:
   flutter_test:
@@ -63,7 +64,7 @@ flutter:
   assets:
     - assets/config/
     - assets/icons/
-    - assets/images/
+    # - assets/images/
   fonts:
     - family: Poppins
       fonts:

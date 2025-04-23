@@ -6,13 +6,12 @@
             "type": "dart",
             "request": "launch",
             "flutterMode": "debug",
-            "deviceId": "192.168.0.100:37969",
+            "deviceId": "192.168.0.101:43435",
             "args": [
                 "--flavor",
                 "dev",
                 "-t",
                 "lib/main.dart",
-                "--verbose",
                 "--dart-define",
                 "FLAVOR=dev"
             ]
